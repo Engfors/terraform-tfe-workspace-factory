@@ -42,6 +42,7 @@ module "demo_workspace" {
           "ingress_submodules" = false
           "oauth_token_id"     = "ot-21hhhabcdefoia123"
         }
+    ]
 
     workspace_variables = [
       {
