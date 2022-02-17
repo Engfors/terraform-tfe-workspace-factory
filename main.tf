@@ -2,21 +2,21 @@ resource "tfe_workspace" "workspace" {
   count                 = length(var.workspace)
   name                  = lookup(var.workspace[count.index], "name")
   organization          = lookup(var.workspace[count.index], "organization")
-  auto_apply            = lookup(var.workspace[count.index], "auto_apply")
-  file_triggers_enabled = lookup(var.workspace[count.index], "file_triggers_enabled")
-  operations            = lookup(var.workspace[count.index], "operations")
-  ssh_key_id            = lookup(var.workspace[count.index], "ssh_key_id")
-  trigger_prefixes      = [lookup(var.workspace[count.index], "trigger_prefixes")]
-  working_directory     = lookup(var.workspace[count.index], "working_directory")
   terraform_version     = lookup(var.workspace[count.index], "tf_version")
-  queue_all_runs        = lookup(var.workspace[count.index], "queue_all_runs")
+  auto_apply            = try(lookup(var.workspace[count.index], "auto_apply"), false)
+  file_triggers_enabled = try(lookup(var.workspace[count.index], "file_triggers_enabled"), false)
+  operations            = try(lookup(var.workspace[count.index], "operations"), true)
+  ssh_key_id            = try(lookup(var.workspace[count.index], "ssh_key_id"), "")
+  trigger_prefixes      = try(lookup(var.workspace[count.index], "trigger_prefixes"), [])
+  working_directory     = try(lookup(var.workspace[count.index], "working_directory"), "")
+  queue_all_runs        = try(lookup(var.workspace[count.index], "queue_all_runs"), true)
 
   dynamic "vcs_repo" {
     for_each = var.vcs_configuration
     content {
       identifier         = lookup(var.vcs_configuration[count.index], "identifier")
       branch             = lookup(var.vcs_configuration[count.index], "branch")
-      ingress_submodules = lookup(var.vcs_configuration[count.index], "ingress_submodules")
+      ingress_submodules = try(lookup(var.vcs_configuration[count.index], "ingress_submodules"), false)
       oauth_token_id     = lookup(var.vcs_configuration[count.index], "oauth_token_id")
     }
   }
@@ -26,9 +26,9 @@ resource "tfe_variable" "variable" {
   count        = length(var.workspace_variables)
   key          = lookup(var.workspace_variables[count.index], "key")
   value        = lookup(var.workspace_variables[count.index], "value")
-  category     = lookup(var.workspace_variables[count.index], "category")
-  hcl          = lookup(var.workspace_variables[count.index], "hcl")
-  sensitive    = lookup(var.workspace_variables[count.index], "sensitive")
+  category     = try(lookup(var.workspace_variables[count.index], "category"), "terraform")
+  hcl          = try(lookup(var.workspace_variables[count.index], "hcl"), false)
+  sensitive    = try(lookup(var.workspace_variables[count.index], "sensitive"), false)
   workspace_id = element(tfe_workspace.workspace.*.id, count.index)
 }
 

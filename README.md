@@ -12,7 +12,10 @@ Tested with Terraform 1.0.11.
 
 ## Usage
 
+*Note: Attributes followed by [default] is not required and can be skipped if no change to the value is needed.*
+
 Workspace **with** notification and vcs example:
+
 
 ```hcl
 
@@ -23,15 +26,14 @@ module "demo_workspace" {
       {
         "name"                  = "project_with_vcs"
         "organization"          = "test_organization"
-        "auto_apply"            = false
-        "file_triggers_enabled" = false
-        "operations"            = true
-        "ssh_key_id"            = ""
-        "trigger_prefixes"      = "folder/"
-        "working_directory"     = "folder"
         "tf_version"            = "1.0.11"
-        "queue_all_runs"        = false
-
+        "auto_apply"            = false [default]
+        "file_triggers_enabled" = false [default]
+        "operations"            = true [default]
+        "ssh_key_id"            = "" [default]
+        "trigger_prefixes"      = [] [default]
+        "working_directory"     = "" [default]
+        "queue_all_runs"        = false [default]
       }
     ]
 
@@ -39,8 +41,8 @@ module "demo_workspace" {
         {
           "identifier"         = "organisation/repo"
           "branch"             = "main"
-          "ingress_submodules" = false
           "oauth_token_id"     = "ot-21hhhabcdefoia123"
+          "ingress_submodules" = false [default]
         }
     ]
 
@@ -75,18 +77,17 @@ module "demo_workspace" {
   source   = "./modules/terraform-terraform-workspace-factory"
 
   workspace = [
-      {
+            {
         "name"                  = "project_without_vcs"
         "organization"          = "test_organization"
-        "auto_apply"            = false
-        "file_triggers_enabled" = false
-        "operations"            = true
-        "ssh_key_id"            = ""
-        "trigger_prefixes"      = ""
-        "working_directory"     = ""
         "tf_version"            = "1.0.11"
-        "queue_all_runs"        = false
-
+        "auto_apply"            = false [default]
+        "file_triggers_enabled" = false [default]
+        "operations"            = true [default]
+        "ssh_key_id"            = "" [default]
+        "trigger_prefixes"      = [] [default]
+        "working_directory"     = "" [default]
+        "queue_all_runs"        = false [default]
       }
     ]
 
