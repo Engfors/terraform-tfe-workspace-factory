@@ -42,16 +42,16 @@ module "demo_workspace" {
           "ingress_submodules" = false
           "oauth_token_id"     = "ot-21hhhabcdefoia123"
         }
-
-    workspace_variables = [
-      {
-        key       = "mykey"
-        value     = "myvalue"
-        category  = "terraform"
-        hcl       = "false"
-        sensitive = "false"
-      }
     ]
+
+    workspace_variables = {
+      "mykey" = {
+        value       = "myvalue"
+        category    = "terraform"
+        hcl         = "false"
+        sensitive   = "false"
+      }
+    }
 
     notification_configuration = [
       {
@@ -89,15 +89,14 @@ module "demo_workspace" {
       }
     ]
 
-    workspace_variables = [
-      {
-        key       = "mykey"
-        value     = "myvalue"
-        category  = "terraform"
-        hcl       = "false"
-        sensitive = "false"
+    workspace_variables = {
+      "mykey" = {
+        value       = "myvalue"
+        category    = "terraform"
+        hcl         = "false"
+        sensitive   = "false"
       }
-    ]
+    }
 
 }
 ```
