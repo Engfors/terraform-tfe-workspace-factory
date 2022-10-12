@@ -46,16 +46,6 @@ module "demo_workspace" {
         }
     ]
 
-    workspace_variables = [
-      {
-        key       = "mykey"
-        value     = "myvalue"
-        category  = "terraform"
-        hcl       = "false"
-        sensitive = "false"
-      }
-    ]
-
     workspace_variables = {
       "mykey" = {
         value       = "myvalue"
