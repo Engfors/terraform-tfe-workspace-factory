@@ -23,13 +23,13 @@ resource "tfe_workspace" "workspace" {
 }
 
 resource "tfe_variable" "variable" {
-  count        = length(var.workspace_variables)
-  key          = lookup(var.workspace_variables[count.index], "key")
-  value        = lookup(var.workspace_variables[count.index], "value")
-  category     = try(lookup(var.workspace_variables[count.index], "category"), "terraform")
-  hcl          = try(lookup(var.workspace_variables[count.index], "hcl"), false)
-  sensitive    = try(lookup(var.workspace_variables[count.index], "sensitive"), false)
-  workspace_id = element(tfe_workspace.workspace.*.id, count.index)
+  for_each     = var.workspace_variables
+  key          = each.key
+  value        = each.value.value
+  category     = each.value.category
+  hcl          = each.value.hcl
+  sensitive    = each.value.sensitive
+  workspace_id = tfe_workspace.workspace.0.id
 }
 
 resource "tfe_notification_configuration" "notification" {
