@@ -5,8 +5,13 @@ variable "workspace" {
 
 variable "workspace_variables" {
   description = "Defines maps in a list for Variables configuration"
-  type        = list(map(string))
-  default     = []
+  type = map(object({
+    value       = string
+    category    = string
+    hcl         = bool
+    sensitive   = bool
+  }))
+  default = {}
 }
 
 variable "notification_configuration" {
