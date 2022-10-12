@@ -5,7 +5,6 @@ resource "tfe_workspace" "workspace" {
   terraform_version     = lookup(var.workspace[count.index], "tf_version")
   auto_apply            = try(lookup(var.workspace[count.index], "auto_apply"), false)
   file_triggers_enabled = try(lookup(var.workspace[count.index], "file_triggers_enabled"), false)
-  operations            = try(lookup(var.workspace[count.index], "operations"), true)
   ssh_key_id            = try(lookup(var.workspace[count.index], "ssh_key_id"), "")
   trigger_prefixes      = try(lookup(var.workspace[count.index], "trigger_prefixes"), [])
   working_directory     = try(lookup(var.workspace[count.index], "working_directory"), "")
