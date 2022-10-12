@@ -56,6 +56,15 @@ module "demo_workspace" {
       }
     ]
 
+    workspace_variables = {
+      "mykey" = {
+        value       = "myvalue"
+        category    = "terraform"
+        hcl         = "false"
+        sensitive   = "false"
+      }
+    }
+
     notification_configuration = [
       {
         "name"             = "test_notifaction"
@@ -91,15 +100,14 @@ module "demo_workspace" {
       }
     ]
 
-    workspace_variables = [
-      {
-        key       = "mykey"
-        value     = "myvalue"
-        category  = "terraform"
-        hcl       = "false"
-        sensitive = "false"
+    workspace_variables = {
+      "mykey" = {
+        value       = "myvalue"
+        category    = "terraform"
+        hcl         = "false"
+        sensitive   = "false"
       }
-    ]
+    }
 
 }
 ```
