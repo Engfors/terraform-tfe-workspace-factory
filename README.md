@@ -14,7 +14,7 @@ Requires Terrform version > 1.3.0
 
 ## Usage
 
-*Note: Attributes followed by [default] is not required and can be skipped if no change to the value is needed.*
+*Note: All workspace inputs are not demonstrated in below example, have a look att the `variables.tf` to understand all available inputs*
 
 Workspace **with** notification and vcs example:
 
@@ -26,25 +26,19 @@ module "demo_workspace" {
 
   workspace = [
       {
-        "name"                  = "project_with_vcs"
-        "organization"          = "test_organization"
-        "tf_version"            = "1.3.2"
-        "auto_apply"            = false [default]
-        "file_triggers_enabled" = false [default]
-        "operations"            = true [default]
-        "ssh_key_id"            = "" [default]
-        "trigger_prefixes"      = [] [default]
-        "working_directory"     = "" [default]
-        "queue_all_runs"        = false [default]
+        name                      = "project_with_vcs"
+        organization              = "test_organization"
+        tf_version                = "1.3.2"
+        file_triggers_enabled     = true
+        trigger_patterns          = ["path/*"]
       }
     ]
 
     vcs_configuration = [
         {
-          "identifier"         = "organisation/repo"
-          "branch"             = "main"
-          "oauth_token_id"     = "ot-21hhhabcdefoia123"
-          "ingress_submodules" = false [default]
+          identifier         = "organisation/repo"
+          branch             = "main"
+          oauth_token_id     = "ot-21hhhabcdefoia123"
         }
     ]
 
@@ -59,12 +53,12 @@ module "demo_workspace" {
 
     notification_configuration = [
       {
-        "name"             = "test_notifaction"
-        "enabled"          = true
-        "token"            = "my_token"
-        "destination_type" = "slack"
-        "url"              = "https://hooks.slack.com/services/AB1C2SE98/AB1C2SE98/21hhhabcdefoia123"
-        "triggers"         = "run:needs_attention"
+        name             = "test_notifaction"
+        enabled          = true
+        token"            = "my_token"
+        destination_type = "slack"
+        url              = "https://hooks.slack.com/services/AB1C2SE98/AB1C2SE98/21hhhabcdefoia123"
+        triggers         = "run:needs_attention"
       }
     ]
 }
@@ -78,17 +72,12 @@ module "demo_workspace" {
   source   = "./modules/terraform-terraform-workspace-factory"
 
   workspace = [
-            {
-        "name"                  = "project_without_vcs"
-        "organization"          = "test_organization"
-        "tf_version"            = "1.3.2"
-        "auto_apply"            = false [default]
-        "file_triggers_enabled" = false [default]
-        "operations"            = true [default]
-        "ssh_key_id"            = "" [default]
-        "trigger_prefixes"      = [] [default]
-        "working_directory"     = "" [default]
-        "queue_all_runs"        = false [default]
+      {
+        name                      = "project_with_vcs"
+        organization              = "test_organization"
+        tf_version                = "1.3.2"
+        file_triggers_enabled     = true
+        trigger_patterns          = ["path/*"]
       }
     ]
 
