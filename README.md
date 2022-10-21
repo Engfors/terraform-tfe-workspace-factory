@@ -8,7 +8,8 @@ A Terraform module which creates Workspace on Terraform Cloud / Enterprise with 
 
 ## Terraform versions
 
-Tested with Terraform 1.0.11.
+Tested with Terraform 1.3.2
+Requires Terrform version > 1.3.0
 
 ## Usage
 
