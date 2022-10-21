@@ -28,7 +28,7 @@ module "demo_workspace" {
       {
         "name"                  = "project_with_vcs"
         "organization"          = "test_organization"
-        "tf_version"            = "1.0.11"
+        "tf_version"            = "1.3.2"
         "auto_apply"            = false [default]
         "file_triggers_enabled" = false [default]
         "operations"            = true [default]
@@ -81,7 +81,7 @@ module "demo_workspace" {
             {
         "name"                  = "project_without_vcs"
         "organization"          = "test_organization"
-        "tf_version"            = "1.0.11"
+        "tf_version"            = "1.3.2"
         "auto_apply"            = false [default]
         "file_triggers_enabled" = false [default]
         "operations"            = true [default]
